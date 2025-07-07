@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Pokemon {
+  id               Int      @id
+  name             String   @unique
+  height           Int
+  weight           Int
+  generation       Int
+  
+  types            String[]
+  
+  isLegendary      Boolean  @default(false)
+  isMythical       Boolean  @default(false)
+  
+  // Stats array: [hp, attack, defense, specialAttack, specialDefense, speed]
+  // Length constraint must be enforced at application level
+  stats            Int[]
+  
+  evolutionChain  EvolutionChain?
+  
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  @@map("pokemon")
+}
+
+model EvolutionChain {
+  id          Int     @id @default(autoincrement())
+  chainId     Int     // Same ID for all Pokemon in the same evolution line
+  pokemonId   Int
+  stage       Int     // 1 for first stage, 2 for second, etc.
+  
+  minLevel    Int?
+  
+  pokemon     Pokemon @relation(fields: [pokemonId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  @@unique([pokemonId])
+  @@map("evolution_chains")
+}

@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.mythical-row {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #f8fafc 100%);
+  border-left: 3px solid #8b5cf6;
+  position: relative;
+}
+.mythical-row::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+  animation: pulse 3s ease-in-out infinite;
+  pointer-events: none;
+}
+.legendary-row {
+  background: linear-gradient(135deg, #fffef7 0%, #fefce8 50%, #fffef7 100%);
+  border-left: 3px solid #eab308;
+  position: relative;
+}
+.legendary-row::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(234, 179, 8, 0.1) 50%, transparent 100%);
+  animation: shine 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.pokemon-row {
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pokemon-row.animate-in {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.pokemon-row.slide-left {
+  transform: translateX(-30px);
+  opacity: 0;
+}
+
+.pokemon-row.slide-left.animate-in {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.pokemon-row.slide-right {
+  transform: translateX(30px);
+  opacity: 0;
+}
+
+.pokemon-row.slide-right.animate-in {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.pokemon-row.scale-up {
+  transform: scale(0.95);
+  opacity: 0;
+}
+
+.pokemon-row.scale-up.animate-in {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.pokemon-row.fade-blur {
+  filter: blur(4px);
+  opacity: 0;
+}
+
+.pokemon-row.fade-blur.animate-in {
+  filter: blur(0);
+  opacity: 1;
+}
+
+.pokemon-row:nth-child(2n) { transition-delay: 0.00s; }
+.pokemon-row:nth-child(3n) { transition-delay: 0.04s; }
+.pokemon-row:nth-child(4n) { transition-delay: 0.08s; }
+.pokemon-row:nth-child(5n) { transition-delay: 0.11s; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
